@@ -1,0 +1,29 @@
+{
+    "name": "java_algorithm_interview_with_kotlin",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "directories": {
+        "test": "test"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "typescript": "^5.4.5"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.24.4",
+        "@babel/preset-env": "^7.24.4",
+        "@types/benchmark": "^2.1.5",
+        "@types/jest": "^29.5.12",
+        "babel-jest": "^29.7.0",
+        "benchmark": "^2.1.4",
+        "jest": "^29.7.0",
+        "prettier": "^3.2.5",
+        "ts-jest": "^29.1.2"
+    }
+}
