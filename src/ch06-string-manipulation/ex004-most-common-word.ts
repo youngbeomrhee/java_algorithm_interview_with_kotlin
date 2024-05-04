@@ -35,6 +35,8 @@
 export function mostCommonWord(paragraph: string, banned: string[]): string {
     const words = paragraph.toLowerCase().match(/[a-zA-Z]+/g) ?? []
     // const words = paragraph.replace(/\W+/g, ' ').toLowerCase().split(' ')    // 이렇게도 처리 가능하지만 _ 는 거르지 못한다
+    const bannedSet = new Set(banned) // set을 사용하여 검색성능을 O(n)에서 O(1)로 개선
+
     const frequencyMap = new Map<string, number>()
     words.forEach((word) => {
         frequencyMap.set(word, (frequencyMap.get(word) ?? 0) + 1)
@@ -44,7 +46,7 @@ export function mostCommonWord(paragraph: string, banned: string[]): string {
     let maxFrequentWord: string = ''
 
     frequencyMap.forEach((frequency, word) => {
-        if (frequency > maxFrequency && banned.indexOf(word) === -1) {
+        if (frequency > maxFrequency && !bannedSet.has(word)) {
             maxFrequency = frequency
             maxFrequentWord = word
         }
