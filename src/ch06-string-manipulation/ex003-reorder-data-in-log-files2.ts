@@ -4,7 +4,7 @@
     3. digit-logs 는 상대적인 순서 그대로 유지
 
     개선안: 
-        - 문자를 비교해주는 localeCompare 활용
+        - 문자를 비교해주는 localeCompare 활용 -> 낯선 localCompare 보다는 그냥 기본 대소비교 연산자로 비교한다
         - 처음에 letter-logs와 digit-logs를 분리해서 전체 목록이 아닌 letter-logs 내부만 정렬을 수행한다
         - letter-logs는 identifer를 제외한 나머지 문자를 바로 비교하면 된다 (문자의 배열로 분리할 필요 없다)
         - 구조분해 할당 후 다시 join 하는 방식 대신 바로 문자를 자르는 방식으로 수정
@@ -17,7 +17,13 @@ export function reorderLogFiles2(logs: string[]): string[] {
     }
 
     function compareStrings(a: string, b: string): ComparisonResult {
-        return a.localeCompare(b)
+        if (a < b) {
+            return ComparisonResult.ALessThanB
+        } else if (a > b) {
+            return ComparisonResult.AGreaterThanB
+        } else {
+            return ComparisonResult.AEqualsB
+        }
     }
 
     function isDigitLog(value: string): boolean {
