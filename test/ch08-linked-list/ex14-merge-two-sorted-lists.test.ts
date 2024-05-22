@@ -2,7 +2,7 @@ import {
     mergeTwoLists,
     mergeTwoListsRecursive,
 } from '@/src/ch08-linked-list/ex14-merge-two-sorted-lists'
-import { ListNode } from '@/src/util/LinkedListNode'
+import { ListNode } from '@/src/util/ListNode'
 
 describe('ex14-merge-two-sorted-lists', () => {
     const cases: [[number[], number[]], number[]][] = [

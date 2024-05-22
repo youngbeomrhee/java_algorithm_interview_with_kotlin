@@ -1,5 +1,5 @@
 import { isPalindrome } from '@/src/ch08-linked-list/ex13-palindrome-linked-list'
-import { ListNode } from '@/src/util/LinkedListNode'
+import { ListNode } from '@/src/util/ListNode'
 
 describe('ex13-palindrome-linked-list', () => {
     const cases: [number[], boolean][] = [

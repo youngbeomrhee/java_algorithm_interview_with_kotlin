@@ -2,7 +2,7 @@ import {
     reverseList,
     reverseListRecursive,
 } from '@/src/ch08-linked-list/ex15-reverse-linked-list'
-import { ListNode } from '@/src/util/LinkedListNode'
+import { ListNode } from '@/src/util/ListNode'
 
 describe('ex15-reverse-linked-list', () => {
     const cases: [number[], number[]][] = [
