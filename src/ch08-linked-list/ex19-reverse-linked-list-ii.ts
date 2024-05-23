@@ -28,7 +28,7 @@ Constraints:
 The number of nodes in the linked list is in the range [0, 10^4].
 -10^6 <= Node.val <= 10^6
 */
-function reverseBetween(
+export function reverseBetweenSelf(
     head: ListNode<number> | null,
     left: number,
     right: number
@@ -39,29 +39,90 @@ function reverseBetween(
 
     const dummyHead = new ListNode(0)
     dummyHead.next = head
-    let prevNode = dummyHead
-    let currentNode = head
+
+    // reverse 된 목록의 첫 번째 요소와 연결할 정상 순서의 마지막 노드
+    let leftLastNode = head
+    // reverse 된 목록의 첫 번째 요소
+    let reversedHead = null
+    // reverse 된 목록의 마지막 요소
+    let reversedLast = null
+
+    let prevNode = null
 
     let count = 1
-    while (count < left) {
-        prevNode = currentNode
-        currentNode = currentNode.next as ListNode<number>
+    while (head !== null && count <= right) {
+        // pointer가 reverse 시키기 전의 목록에 도달했을 때 현재의 pointer를 leftLastNode에 저장
+        if (count === left - 1) {
+            leftLastNode = head
+        }
+
+        // pointer가 reverse 시킬 목록의 시작점에 도달했을 때 현재의 pointer를 reversedLast에 저장
+        if (count === left) {
+            reversedLast = head
+        }
+
+        // left와 right 사이의 요소 reverse
+        if (count > left && count <= right) {
+            const nextNode: ListNode<number> | null = head.next
+            reversedHead = head
+            reversedHead.next = prevNode
+            prevNode = head
+            head = nextNode
+        } else {
+            prevNode = head
+            head = head.next
+        }
+
+        // 다음 요소로 계속 진행
         count++
     }
 
-    let reversedHead: ListNode<number> | null = null
-    let reversedTail: ListNode<number> | null = currentNode
+    // leftLastNode -> reversedHead
+    leftLastNode.next = reversedHead
+    // reversedLast -> head에 연결
+    reversedLast!.next = head
 
-    while (count >= left && count <= right) {
+    return dummyHead.next
+}
+
+export function reverseBetween(
+    head: ListNode<number> | null,
+    left: number,
+    right: number
+): ListNode<number> | null {
+    // 요소가 없거나, 1개이거나, left와 right가 같은 경우, 그대로 반환
+    if (head === null || head.next === null || left === right) {
+        return head
+    }
+
+    const dummyHead = new ListNode(0)
+    dummyHead.next = head
+    let prevNode = dummyHead
+    let count = 1
+
+    // left 위치의 바로 앞 노드까지 이동
+    while (count < left && prevNode.next !== null) {
+        prevNode = prevNode.next
+        count++
+    }
+
+    // reverse 시작 되기 전의 node를 저장 -> reverse가 끝난 후에 reverse의 시작점과 연결
+    const prevReverseStart = prevNode
+    const reverseStart = prevReverseStart.next
+
+    let currentNode = reverseStart
+    while (count <= right && currentNode !== null) {
         const nextNode = currentNode.next
-        currentNode.next = reversedHead
-        reversedHead = currentNode
-        currentNode = nextNode as ListNode<number>
+        currentNode.next = prevNode
+        prevNode = currentNode
+        currentNode = nextNode
         count++
     }
 
-    prevNode.next = reversedHead
-    reversedTail.next = currentNode
+    // reverse가 끝난 후 reverse의 시작 이전지점과 reverse의 시작점으로 변경된 preveNode 연결
+    prevReverseStart.next = prevNode
+    // reverse의 마지막 노드와 reverse의 다음 노드 연결
+    reverseStart!.next = currentNode
 
     return dummyHead.next
 }
