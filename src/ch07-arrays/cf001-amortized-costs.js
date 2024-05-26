@@ -11,7 +11,7 @@ function dynamicArrayAnalysis(numElements) {
 
     // 스트림을 사용하여 파일에 쓰기
     const outputStream = fs.createWriteStream(
-        `DynamicArrayAnalysis-${numElements}.csv`
+        `./DynamicArrayAnalysis-${numElements}.csv`
     )
     outputStream.write(
         'Element Index,Addition Cost,Copy Cost,Total Cost,Amortized Cost\n'
@@ -55,11 +55,10 @@ function dynamicArrayAnalysis(numElements) {
         // }
     }
 
-    // 데이터를 스트림에 쓰기
-    outputStream.write(`\n\n****************** Summary ****************\n`)
-    outputStream.write(`Min: ${minCost}\n`)
-    outputStream.write(`Max: ${maxCost}\n`)
-    outputStream.write(`Average AmortizedCost: ${sum / numElements}\n`)
+    console.log(`\n\n****************** Summary ****************\n`)
+    console.log(`Min: ${minCost}\n`)
+    console.log(`Max: ${maxCost}\n`)
+    console.log(`Average AmortizedCost: ${sum / numElements}\n`)
 
     outputStream.end(() => {
         console.log('Data has been written to file successfully.')
@@ -67,9 +66,9 @@ function dynamicArrayAnalysis(numElements) {
 }
 
 // dynamicArrayAnalysis(Math.pow(2, 10))
-dynamicArrayAnalysis(Math.pow(2, 15))
+// dynamicArrayAnalysis(Math.pow(2, 15))
 // dynamicArrayAnalysis(Math.pow(2, 20))
-// dynamicArrayAnalysis(Math.pow(2, 25))
+dynamicArrayAnalysis(Math.pow(2, 25))
 // dynamicArrayAnalysis(Math.pow(2, 27))
 // dynamicArrayAnalysis(Math.pow(2, 29))
 // dynamicArrayAnalysis(Math.pow(2, 30))
