@@ -1,9 +1,9 @@
 import {
     removeDuplicateLetters,
     removeDuplicateLetters2,
-} from '@/src/ch09-stack-queue/ex21-remove-duplicate-letters'
+} from '@/src/ch09-stack-queue/ex021-remove-duplicate-letters'
 
-describe('ex22-remove-duplicate-letters', () => {
+describe('ex021-remove-duplicate-letters', () => {
     const cases = [
         ['bcabc', 'abc'],
         ['cbacdcbc', 'acdb'],

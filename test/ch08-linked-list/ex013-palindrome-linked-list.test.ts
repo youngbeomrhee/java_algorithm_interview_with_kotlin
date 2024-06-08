@@ -1,7 +1,7 @@
-import { isPalindrome } from '@/src/ch08-linked-list/ex13-palindrome-linked-list'
+import { isPalindrome } from '@/src/ch08-linked-list/ex013-palindrome-linked-list'
 import { ListNode } from '@/src/util/ListNode'
 
-describe('ex13-palindrome-linked-list', () => {
+describe('ex013-palindrome-linked-list', () => {
     const cases: [number[], boolean][] = [
         [[1, 2, 2, 1], true],
         [[1, 2], false],

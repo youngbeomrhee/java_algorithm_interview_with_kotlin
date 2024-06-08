@@ -1,7 +1,7 @@
-import { reverseBetween } from '@/src/ch08-linked-list/ex19-reverse-linked-list-ii'
+import { reverseBetween } from '@/src/ch08-linked-list/ex019-reverse-linked-list-ii'
 import { ListNode } from '@/src/util/ListNode'
 
-describe('ex19-reverse-linked-list-ii', () => {
+describe('ex019-reverse-linked-list-ii', () => {
     const cases: [[number[], number, number], number[]][] = [
         [
             [[1, 2, 3, 4, 5], 2, 4],

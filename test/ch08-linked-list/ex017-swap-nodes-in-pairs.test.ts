@@ -1,7 +1,7 @@
-import { swapPairs } from '@/src/ch08-linked-list/ex17-swap-nodes-in-pairs'
+import { swapPairs } from '@/src/ch08-linked-list/ex017-swap-nodes-in-pairs'
 import { ListNode } from '@/src/util/ListNode'
 
-describe('ex17-swap-nodes-in-pairs', () => {
+describe('ex017-swap-nodes-in-pairs', () => {
     const cases: [number[], number[]][] = [
         [
             [1, 2, 3, 4],
