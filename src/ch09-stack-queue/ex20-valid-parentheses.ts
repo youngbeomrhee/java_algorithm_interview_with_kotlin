@@ -28,7 +28,7 @@ Constraints:
 s consists of parentheses only '()[]{}'.
 */
 export function isValid(s: string): boolean {
-    if (s.length === 1) {
+    if (s.length === 1 && s.length % 2 !== 0) {
         return false
     }
     const bracketStack: string[] = [s[0]]

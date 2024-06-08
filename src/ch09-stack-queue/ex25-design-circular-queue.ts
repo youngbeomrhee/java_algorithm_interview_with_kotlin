@@ -49,29 +49,36 @@ class MyCircularQueue {
     tail = 0
     length = 0
     constructor(k: number) {
+        // k 크기의 원형 큐로 사용할 배열 선언
         this.list = new Array(k)
     }
     Front(): number {
+        // 맨 앞의 값을 가져온다
         return this.length === 0 ? -1 : this.list[this.head]
     }
     Rear(): number {
+        // 맨 뒤의 값을 가져온다
         return this.length === 0
             ? -1
             : this.list[(this.tail - 1 + this.list.length) % this.list.length]
     }
     enQueue(value: number): boolean {
-        if (this.length === this.list.length) {
+        // 꽉 차 있지 않다면 삽입 진행
+        if (!this.isFull()) {
             return false
         }
-        this.list[this.tail] = value
+        // tail 포인터 한 칸 앞으로 이동, 최대 크기를 초과하면 나머지 위치로 이동
         this.tail = (this.tail + 1) % this.list.length
+        this.list[this.tail] = value
         this.length++
         return true
     }
     deQueue(): boolean {
-        if (this.length === 0) {
+        // 비어 있다면 삭제 진행 불가
+        if (this.isEmpty()) {
             return false
         }
+        // head 포인터 한 칸 앞으로 이동, 최대 크기를 초과하면 나머지 위치로 이동
         this.head = (this.head + 1) % this.list.length
         this.length--
         return true

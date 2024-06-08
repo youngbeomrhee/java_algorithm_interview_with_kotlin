@@ -88,7 +88,7 @@ export function removeDuplicateLetters(s: string): string {
 export function removeDuplicateLetters2(s: string): string {
     const counter = new Map<string, number>()
     const seen = new Map<string, boolean>()
-    const stack = []
+    const resultStack = []
 
     // 문자별 빈도수 카운팅
     for (let c of s.split('')) {
@@ -106,12 +106,12 @@ export function removeDuplicateLetters2(s: string): string {
         }
 
         while (
-            stack.length > 0 && // stack이 비어있지 않고,
-            stack[stack.length - 1] > c && // stack의 top이 현재 문자보다 크고,
-            (counter.get(stack[stack.length - 1]) ?? 0) > 0 // stack의 top에 있는 문자가 뒤에 더 나올 경우
+            resultStack.length > 0 && // stack이 비어있지 않고,
+            resultStack[resultStack.length - 1] > c && // stack의 top이 현재 문자보다 크고,
+            (counter.get(resultStack[resultStack.length - 1]) ?? 0) > 0 // stack의 top에 있는 문자가 뒤에 더 나올 경우
         ) {
             // stack의 top을 제거
-            let popped = stack.pop()
+            let popped = resultStack.pop()
             if (popped !== undefined) {
                 // 제거한 문자를 처리하지 않은 상태로 변경
                 seen.set(popped, false)
@@ -119,10 +119,10 @@ export function removeDuplicateLetters2(s: string): string {
         }
 
         // 현재 문자를 스택에 추가
-        stack.push(c)
+        resultStack.push(c)
         // 현재 문자를 처리했음을 표시
         seen.set(c, true)
     }
 
-    return stack.join('')
+    return resultStack.join('')
 }
