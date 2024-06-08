@@ -1,3 +1,6 @@
+import { ListNode } from '../util/ListNode'
+import { PriorityQueue } from '../util/PriorityQueue'
+
 /*
 You are given an array of k linked-lists lists, each linked-list is sorted in ascending order.
 
@@ -38,44 +41,19 @@ The sum of lists[i].length will not exceed 10^4.
 
 use priority queue
 */
-function mergeKLists(lists: Array<ListNode | null>): ListNode | null {
-    class PriorityQueue<T> {
-        data: Array<T>
-        compare: (a: T, b: T) => number
-
-        constructor(compare: (a: T, b: T) => number) {
-            this.data = []
-            this.compare = compare
-        }
-
-        push(item: T, priority: number) {
-            this.data.push(item)
-            this.data.sort((a, b) => this.compare(a, b))
-        }
-
-        pop() {
-            return this.data.shift()
-        }
-
-        peek() {
-            return this.data[0]
-        }
-
-        isEmpty() {
-            return this.data.length === 0
-        }
-    }
-
-    const compare = (a: ListNode, b: ListNode) => a.val - b.val
-    const pq = new PriorityQueue<ListNode>(compare)
+function mergeKLists(
+    lists: Array<ListNode<number> | null>
+): ListNode<number> | null {
+    const compare = (a: ListNode<number>, b: ListNode<number>) => a.val - b.val
+    const pq = new PriorityQueue<ListNode<number>>(compare)
 
     for (const list of lists) {
         if (list) {
-            pq.push(list, list.val)
+            pq.push(list)
         }
     }
 
-    const dummy = new ListNode()
+    const dummy = new ListNode<number>(-1)
     let tail = dummy
 
     while (!pq.isEmpty()) {
@@ -85,19 +63,10 @@ function mergeKLists(lists: Array<ListNode | null>): ListNode | null {
             tail = tail.next
 
             if (node.next) {
-                pq.push(node.next, node.next.val)
+                pq.push(node.next)
             }
         }
     }
 
     return dummy.next
-}
-
-class ListNode {
-    val: number
-    next: ListNode | null
-    constructor(val?: number, next?: ListNode | null) {
-        this.val = val === undefined ? 0 : val
-        this.next = next === undefined ? null : next
-    }
 }
