@@ -9,6 +9,7 @@
         - letter-logs는 identifer를 제외한 나머지 문자를 바로 비교하면 된다 (문자의 배열로 분리할 필요 없다)
         - 구조분해 할당 후 다시 join 하는 방식 대신 바로 문자를 자르는 방식으로 수정
 */
+// TC: O(2n) + O(n log n)
 export function reorderLogFiles2(logs: string[]): string[] {
     enum ComparisonResult {
         ALessThanB = -1,
@@ -33,6 +34,7 @@ export function reorderLogFiles2(logs: string[]): string[] {
     const letterLogs: string[] = []
     const digitLogs: string[] = []
 
+    // TC: O(n)
     logs.forEach((log) => {
         if (isDigitLog(log)) {
             digitLogs.push(log)
@@ -41,6 +43,7 @@ export function reorderLogFiles2(logs: string[]): string[] {
         }
     })
 
+    // TC: O(n log n)
     letterLogs.sort((a, b) => {
         const splitIndexA = a.indexOf(' ')
         const splitIndexB = b.indexOf(' ')
@@ -55,5 +58,6 @@ export function reorderLogFiles2(logs: string[]): string[] {
         return compareStrings(idA, idB)
     })
 
+    // TC: O(n)
     return [...letterLogs, ...digitLogs]
 }
