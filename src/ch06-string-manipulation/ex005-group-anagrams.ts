@@ -25,11 +25,23 @@
     0 <= strs[i].length <= 100
     strs[i] consists of lowercase English letters.
 */
+/*
+    TC: O(n) + O(k) + O(k log k) + O(k) + O(n) = O(n)
+    SC: O(n) + O(n) + O(n) = O(n)
+*/
 function groupAnagrams(strs: string[]): string[][] {
     const anagramsMap = new Map<string, string[]>()
+    // TC: O(n) - n은 strs 배열의 길이
+    // SC: O(n)
     strs.forEach((str) => {
+        // TC: O(k) + O(k log k) + O(k) - k는 str의 길이
         const sortedStr = str.split('').sort().join('')
-        anagramsMap.set(sortedStr, [...(anagramsMap.get(sortedStr) ?? []), str])
+        // SC: O(n)
+        const values = anagramsMap.get(sortedStr) ?? []
+        values.push(str)
+        anagramsMap.set(sortedStr, values)
     })
+    // SC: O(n)
+    // TC: O(n)
     return [...anagramsMap.values()]
 }
