@@ -33,7 +33,7 @@ All values of nums are unique.
 nums is an ascending array that is possibly rotated.
 -10^4 <= target <= 10^4
 */
-function search(nums: number[], target: number): number {
+export function search(nums: number[], target: number): number {
     if (nums.length === 1) {
         return nums[0] === target ? 0 : -1
     }
@@ -62,6 +62,51 @@ function search(nums: number[], target: number): number {
             } else {
                 // 타겟이 왼쪽 부분에 있는 경우
                 right = mid - 1;
+            }
+        }
+    }
+    return -1
+}
+
+export function search2(nums: number[], target: number): number {
+    if (nums.length === 1) {
+        return nums[0] === target ? 0 : -1
+    }
+    let left = 0
+    let right = nums.length - 1
+    while (left <= right) {
+        const mid = Math.floor(left + (right - left) / 2)
+
+        if (nums[left] === target) {
+            return left
+        }
+        if (nums[mid] === target) {
+            return mid
+        }
+        if (nums[right] === target) {
+            return right
+        }
+
+        // 왼쪽 부분이 정렬되어 있는 경우
+        if (nums[left] <= nums[mid]) {
+            // 타겟이 왼쪽 부분에 있는 경우
+            if (nums[left] < target && target < nums[mid]) {
+                right = mid - 1
+                left = left + 1
+            } else {
+                // 타겟이 오른쪽 부분에 있는 경우
+                left = mid + 1
+                right = right - 1
+            }
+        } else {
+            // 타겟이 오른쪽 부분에 있는 경우
+            if (nums[mid] < target && target <= nums[right]) {
+                left = mid + 1;
+                right = right - 1
+            } else {
+                // 타겟이 왼쪽 부분에 있는 경우
+                right = mid - 1;
+                left = left + 1
             }
         }
     }
