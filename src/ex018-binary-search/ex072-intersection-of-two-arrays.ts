@@ -103,7 +103,7 @@ export function intersection2(nums1: number[], nums2: number[]): number[] {
 }
 
 /*
-  TC: O(n + m + s + s) -> O(n + m)
+  TC: O(n + m + s) -> O(n + m) (s는 n 또는 m 중 작은 값이므로 2n + m 또는 n + 2m -> n + m)
   SC: O(n + m + n + m + s) -> O(2n + 2m + s) -> O(n + m)
 */
 export function intersection3(nums1: number[], nums2: number[]): number[] {
@@ -113,7 +113,7 @@ export function intersection3(nums1: number[], nums2: number[]): number[] {
   // TC: O(m). m은 nums2의 길이
   // SC: O(m)
   const nums2Set = new Set<number>(nums2)
-  const intersectionSet = new Set<number>()
+  const intersection = []
 
   // SC: O(n + m)
   const smallerSet = nums1Set.size > nums2Set.size ? nums1Set : nums2Set
@@ -123,11 +123,10 @@ export function intersection3(nums1: number[], nums2: number[]): number[] {
   // SC: O(s)
   for (const n of smallerSet) {
       if (biggerSet.has(n)) {
-          intersectionSet.add(n)
+          intersection.push(n)
       }
   }
-  // TC: O(s)
-  return Array.from(intersectionSet)
+  return intersection
 }
 
 /*
