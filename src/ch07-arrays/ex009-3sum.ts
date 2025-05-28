@@ -34,8 +34,10 @@ export function threeSum(nums: number[]): number[][] {
     return matched
 }
 
+// Two pointer
+// TC: O(n log n) + O(n) * O(n) = O(n^2)
 export function threeSum2(nums: number[]): number[][] {
-    // 먼저 정렬
+    // TC: O(n log n)
     nums.sort((a, b) => a - b)
 
     // early return
@@ -43,7 +45,12 @@ export function threeSum2(nums: number[]): number[][] {
         return nums[0] + nums[1] + nums[2] === 0 ? [nums] : []
     }
     const zeroSums = []
+    // TC: O(n)
     for (let i = 0; i < nums.length - 2; i++) {
+        // 추가 개선: 정렬한 값이므로 가장 왼쪽의 값이 양수면 우측의 값도 양수이므로 더 이상 탐색할 필요가 없음
+        if (nums[i] > 0) {
+            break
+        }
         if (i > 0 && nums[i] === nums[i - 1]) {
             continue
         }
@@ -51,7 +58,12 @@ export function threeSum2(nums: number[]): number[][] {
         let left = i + 1,
             right = nums.length - 1
 
+        // TC: O(n)
         while (left < right) {
+            // 추가 개선: 정렬한 값이므로 가장 오른쪽의 값이 음수면 왼쪽의 값도 음수이므로 더 이상 탐색할 필요가 없음
+            if (nums[right] < 0) {
+                break
+            }
             const sum = nums[i] + nums[left] + nums[right]
             if (sum < 0) {
                 left++
