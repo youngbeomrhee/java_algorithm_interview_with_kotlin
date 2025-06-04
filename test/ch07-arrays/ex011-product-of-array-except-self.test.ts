@@ -111,6 +111,65 @@ describe('ex011-product-of-array-except-self', () => {
         })
     })
 
+    
+    describe('should handle large arrays efficiently', () => {
+        const largeArraySize = 100000; // 큰 배열 크기 설정
+        const iterations = 100; // 반복 횟수
+        const largeArray = Array.from({ length: largeArraySize }, () => Math.floor(Math.random() * 61) - 30);
+
+        // 성능 측정을 위한 배열 초기화
+        const times1: number[] = [];
+        const times2: number[] = [];
+        const times3: number[] = [];
+
+        // 여러 번 실행하여 성능 측정
+        for (let i = 0; i < iterations; i++) {
+            // productExceptSelf 성능 측정
+            const start1 = performance.now();
+            const result1 = productExceptSelf([...largeArray]);
+            const end1 = performance.now();
+            times1.push(end1 - start1);
+
+            // productExceptSelf2 성능 측정
+            const start2 = performance.now();
+            const result2 = productExceptSelf2([...largeArray]);
+            const end2 = performance.now();
+            times2.push(end2 - start2);
+
+            // productExceptSelf3 성능 측정
+            const start3 = performance.now();
+            const result3 = productExceptSelf3([...largeArray]);
+            const end3 = performance.now();
+            times3.push(end3 - start3);
+
+            // 결과 검증
+            expect(result1).toStrictEqual(result2);
+            expect(result2).toStrictEqual(result3);
+        }
+
+        // 평균 계산
+        const avgTime1 = times1.reduce((a, b) => a + b, 0) / iterations;
+        const avgTime2 = times2.reduce((a, b) => a + b, 0) / iterations;
+        const avgTime3 = times3.reduce((a, b) => a + b, 0) / iterations;
+
+        // 표준 편차 계산
+        const stdDev1 = Math.sqrt(times1.reduce((a, b) => a + Math.pow(b - avgTime1, 2), 0) / iterations);
+        const stdDev2 = Math.sqrt(times2.reduce((a, b) => a + Math.pow(b - avgTime2, 2), 0) / iterations);
+        const stdDev3 = Math.sqrt(times3.reduce((a, b) => a + Math.pow(b - avgTime3, 2), 0) / iterations);
+
+        console.log('Large Array Performance (Average of ' + iterations + ' iterations):');
+        console.log(`productExceptSelf: ${avgTime1.toFixed(3)} ms (±${stdDev1.toFixed(3)} ms)`);
+        console.log(`productExceptSelf2: ${avgTime2.toFixed(3)} ms (±${stdDev2.toFixed(3)} ms)`);
+        console.log(`productExceptSelf3: ${avgTime3.toFixed(3)} ms (±${stdDev3.toFixed(3)} ms)`);
+        /*
+- [] (동적으로 lengh가 늘어남
+    productExceptSelf: 0.745 ms (±0.212 ms)
+- new Array(n) - n 크기의 빈배열 생성
+    productExceptSelf2: 0.488 ms (±0.365 ms)
+- new Array(n).fill(1) - n 크기의 빈배열 생성하고 1로 채움
+    productExceptSelf3: 0.491 ms (±0.354 ms)
+        */
+    });
     describe('성능 비교 테스트', () => {
         it('should compare performance of all implementations', () => {
             const ITERATIONS = 10; // 반복 횟수 감소
