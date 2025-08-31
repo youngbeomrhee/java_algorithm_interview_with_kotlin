@@ -31,6 +31,7 @@ Only one valid answer exists.
 */
 
 // Bruth-Force
+// TC: O(n^2)
 export function twoSum(nums: number[], target: number): number[] | undefined {
     for (let i = 0; i < nums.length; i++) {
         for (let j = i + 1; j < nums.length; j++) {
@@ -42,13 +43,16 @@ export function twoSum(nums: number[], target: number): number[] | undefined {
 }
 
 // 개선안: 첫 번째 순회할 때 map으로 만들고 해당 맵을 통해 확인
+// TC: O(n) + O(n) -> O(n)
+// SC: O(n)
 export function twoSum2(nums: number[], target: number): number[] | undefined {
     // 첫 번째 순회할 때 {number: key} 형태의 맵 생성
     const numsMap = new Map<number, number>()
+    // TC: O(n)
     nums.forEach((n, i) => {
         numsMap.set(n, i)
     })
-
+    // TC: O(n)
     for (let i = 0; i < nums.length; i++) {
         const complement = target - nums[i]
         if (numsMap.has(complement) && i !== numsMap.get(complement)) {
@@ -58,9 +62,12 @@ export function twoSum2(nums: number[], target: number): number[] | undefined {
 }
 
 // 개선안: 한 번의 순회로 끝낸다
+// TC: O(n)
+// SC: O(n)
 export function twoSum3(nums: number[], target: number): number[] | undefined {
     const numsMap = new Map<number, number>()
 
+    // TC: O(n)
     for (let i = 0; i < nums.length; i++) {
         const n = nums[i]
         const complement = target - n
